@@ -1,2 +1,2 @@
 # gvmat
-MATLAB API for some [GraphViz](https://graphviz.org/) functionality
+Basic MATLAB API for some limited [GraphViz](https://graphviz.org/) functionality
