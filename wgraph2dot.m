@@ -1,4 +1,4 @@
-function dotfile = wgraph2dot(nweight,eweight,gvfile,selfcon,gvprog,gvdisp,ncscale,ecscale,nwidth,nfontsize,cpendwidth,carrowsize)
+function dotfile = wgraph2dot(nweight,eweight,gvfile,selfcon,gvprog,gvdisp,ncscale,ecscale,gscale,nwidth,nfontsize,cpendwidth,carrowsize)
 
 % Output GraphViz 'dot' file for drawing node/edge-weighted graph, and optionally display.
 %
@@ -78,17 +78,18 @@ end
 
 % Default graph characteristics
 
-if nargin <  9 || isempty(nwidth),     nwidth     =  0.4;   end
-if nargin < 10 || isempty(nfontsize),  nfontsize  =  20;    end
-if nargin < 11 || isempty(cpendwidth), cpendwidth =  1.5;   end
-if nargin < 12 || isempty(carrowsize), carrowsize =  1.0;   end
+if nargin <  9 || isempty(gscale),     gscale     =  5;   end
+if nargin < 10 || isempty(nwidth),     nwidth     =  0.4;   end
+if nargin < 11 || isempty(nfontsize),  nfontsize  =  20;    end
+if nargin < 12 || isempty(cpendwidth), cpendwidth =  1.5;   end
+if nargin < 13 || isempty(carrowsize), carrowsize =  1.0;   end
 
 dotfile = [gvfile '.dot'];
 
 df = fopen(dotfile,'wt');
 
 fprintf(df,'digraph\n{\n');
-fprintf(df,'\tgraph [fontsize = 10, overlap=false, sep=3];\n');
+fprintf(df,'\tgraph [fontsize = 10, scale = %g, overlap = true];\n',gscale);
 fprintf(df,'\tnode [shape = circle, style = filled, fixedsize = true, width = %g, fontsize = %d];\n',nwidth,nfontsize);
 fprintf(df,'\tedge [splines = true, penwidth = %g, arrowsize = %g];\n\n',cpendwidth,carrowsize);
 
