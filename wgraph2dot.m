@@ -116,21 +116,25 @@ fprintf(df,'}\n');
 
 fclose(df);
 
-fprintf('wgraph2dot: produced dot file: %s\n',dotfile);
+fprintf('wgraph2dot : produced dot file : %s\n',dotfile);
 
 if gvdisp
-	system(sprintf('xdot -f %s %s &',gvprog,dotfile));
+	discmd = sprintf('xdot -f %s %s &',gvprog,dotfile);
+	fprintf('             display command   : %s\n',discmd);
+	system(discmd);
 end
 
 if ~isempty(figfmt)
 	figfile = [gvfile '.' figfmt];
 	if strcmp(figfmt,'pdf')
 		epsfile = [gvfile '.eps'];
-		system(sprintf('%s -Teps %s -o %s && epstopdf %s && rm %s',gvprog,dotfile,epsfile,epsfile,epsfile));
+		genfigcmd = sprintf('%s -Teps %s -o %s && epstopdf %s && rm %s',gvprog,dotfile,epsfile,epsfile,epsfile);
 	else
-		system(sprintf('%s -T%s %s -o %s',gvprog,figfmt,dotfile,figfile));
+		genfigcmd = sprintf('%s -T%s %s -o %s',gvprog,figfmt,dotfile,figfile);
 	end
-	fprintf('wgraph2dot: produced fig file: %s\n',figfile);
+	fprintf('             figure  command   : %s\n',genfigcmd);
+	system(genfigcmd);
+	fprintf('             produced fig file : %s\n',figfile);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
