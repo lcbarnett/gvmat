@@ -22,7 +22,7 @@ fprintf(fd,'\\end{scope}\n');
 fprintf(fd,'\\begin{scope}[>={Stealth},every node/.style={fill=white,circle},every edge/.style={draw,very thick}]\n');
 for i = 2:n
 	for j = 1:i-1
-		cij = cs_cubic_bluered(A(i,j),0,1,csp);
+		cij = cs_cubic_bluered(A(i,j),-1,1,csp);
 		if A(i,j) ~= 0
 			fprintf(fd,'\t\\path[color={rgb,255:red,%3d;green,%3d;blue,%3d},-] (%d) edge (%d);\n',cij(1),cij(2),cij(3),i,j);
 		end
@@ -66,8 +66,7 @@ function rgb = cs_cubic_bluered(x,xlo,xhi,p)
 	a = 1+2*(1-p);
 	b = 3*(1-a);
 	c = 1-a-b;
-	y = (x-xlo)./(xhi-xlo);
-	y = 2*y-1;
+	y = 2*(x-xlo)./(xhi-xlo)-1;
 	rgb = ones(length(x),3);
 	if y >= 0
 		y = a*y + b*y.^2 + c*y.^3;
